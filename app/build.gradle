@@ -33,4 +33,4 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-apply from: "https://raw.githubusercontent.com/monstar-lab/gradle-android-ci-check/1.2.0/ci.gradle"
+apply from: "../ci.gradle"
