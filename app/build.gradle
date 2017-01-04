@@ -11,10 +11,29 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        release {
+            storeFile file("../keystore/debug.jks")
+            storePassword 'android'
+            keyAlias 'androidDebugKey'
+            keyPassword 'android'
+        }
+        debug {
+            storeFile file("../keystore/debug.jks")
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            applicationIdSuffix ".debug"
+            versionNameSuffix '-DEBUG'
+            signingConfig signingConfigs.debug
         }
     }
 
