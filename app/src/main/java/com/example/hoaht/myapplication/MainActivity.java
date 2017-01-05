@@ -15,4 +15,8 @@ public class MainActivity extends AppCompatActivity {
     private void Test() {
         // TODO: implement later
     }
+
+    private void Test2() {
+        // TODO: implement later
+    }
 }
