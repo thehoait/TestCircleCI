@@ -26,7 +26,7 @@ echo "********************"
 
 LINT_RESULT_DIR="$CIRCLE_ARTIFACTS/lint"
 
-chown -R $USER:$USER "$CIRCLE_ARTIFACTS"
+chown -R $USER:$USER "$CIRCLE_ARTIFACTS/"
 mkdir "$LINT_RESULT_DIR"
 cp -v "app/build/reports/checkstyle/checkstyle.xml" "$LINT_RESULT_DIR/"
 cp -v "app/build/reports/findbugs/findbugs.xml" "$LINT_RESULT_DIR/"
