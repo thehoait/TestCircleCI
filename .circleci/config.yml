@@ -37,9 +37,9 @@ jobs:
 
     - run:
         name: Run Check Styles
-        command: sudo bash scripts/saddler.sh
+        command: sudo scripts/saddler.sh
 
     - run: |
-        echo $CIRCLE_TEST_REPORTS
-        mkdir -p $CIRCLE_TEST_REPORTS/junit/
-        find . -type d -regex ".*/reports/tests$" -exec cp -r {} $CIRCLE_TEST_REPORTS/junit/ \;
+        sudo echo $CIRCLE_TEST_REPORTS
+        sudo mkdir -p $CIRCLE_TEST_REPORTS/junit/
+        sudo find . -type d -regex ".*/reports/tests$" -exec cp -r {} $CIRCLE_TEST_REPORTS/junit/ \;
