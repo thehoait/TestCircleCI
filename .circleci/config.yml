@@ -1,0 +1,45 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/code
+    docker:
+    - image: circleci/android-api-25-alpha
+
+    environment:
+      TERM: "dumb"
+      JAVA_OPTS: "-Xmx2048m"
+      GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
+    steps:
+    - checkout
+    - restore_cache:
+        keys:
+        - jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+
+    - run:
+        name: Download Dependencies
+        command: ./gradlew androidDependencies
+
+    - save_cache:
+        paths:
+        - ~/.gradle
+        key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+
+    - run:
+        name: Run Tests
+        command: ./gradlew lint test
+
+    - store_artifacts:
+        path: app/build/reports
+        destinations: reports
+
+    - store_test_results:
+        path: app/build/test-results
+
+    - run:
+        name: Run Check Styles
+        command: scripts/saddler.sh
+
+    - run: |
+        echo $CIRCLE_TEST_REPORTS
+        mkdir -p $CIRCLE_TEST_REPORTS/junit/
+        find . -type d -regex ".*/reports/tests$" -exec cp -r {} $CIRCLE_TEST_REPORTS/junit/ \;
