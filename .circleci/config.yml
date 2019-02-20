@@ -37,7 +37,7 @@ jobs:
 
     - run:
         name: Run Check Styles
-        command: scripts/saddler.sh
+        command: sudo bash scripts/saddler.sh
 
     - run: |
         echo $CIRCLE_TEST_REPORTS
